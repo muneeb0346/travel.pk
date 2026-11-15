@@ -1,0 +1,766 @@
+[
+  {
+    "id": "offer-001",
+    "route": "karachi-to-dubai",
+    "price": 68500,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Pakistan International Airlines",
+    "airlineCode": "PIA",
+    "segments": [
+      {
+        "carrier": "Pakistan International Airlines",
+        "flightNumber": "PK301",
+        "origin": "KHI",
+        "destination": "DXB",
+        "departure": "2026-12-01T09:00:00+05:00",
+        "arrival": "2026-12-01T10:15:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-002",
+    "route": "karachi-to-dubai",
+    "price": 72000,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Emirates",
+    "airlineCode": "EK",
+    "segments": [
+      {
+        "carrier": "Emirates",
+        "flightNumber": "EK602",
+        "origin": "KHI",
+        "destination": "DXB",
+        "departure": "2026-12-01T14:30:00+05:00",
+        "arrival": "2026-12-01T15:45:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-003",
+    "route": "karachi-to-dubai",
+    "price": 95000,
+    "currency": "PKR",
+    "cabin": "business",
+    "stops": "nonstop",
+    "airline": "Emirates",
+    "airlineCode": "EK",
+    "segments": [
+      {
+        "carrier": "Emirates",
+        "flightNumber": "EK602",
+        "origin": "KHI",
+        "destination": "DXB",
+        "departure": "2026-12-01T14:30:00+05:00",
+        "arrival": "2026-12-01T15:45:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-004",
+    "route": "karachi-to-dubai",
+    "price": 61200,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "FlyDubai",
+    "airlineCode": "FZ",
+    "segments": [
+      {
+        "carrier": "FlyDubai",
+        "flightNumber": "FZ332",
+        "origin": "KHI",
+        "destination": "DXB",
+        "departure": "2026-12-01T20:00:00+05:00",
+        "arrival": "2026-12-01T21:15:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-005",
+    "route": "karachi-to-dubai",
+    "price": 58900,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "1plus",
+    "airline": "Air Arabia",
+    "airlineCode": "G9",
+    "segments": [
+      {
+        "carrier": "Air Arabia",
+        "flightNumber": "G9412",
+        "origin": "KHI",
+        "destination": "SHJ",
+        "departure": "2026-12-01T06:00:00+05:00",
+        "arrival": "2026-12-01T07:10:00+04:00",
+        "durationMinutes": 130,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      },
+      {
+        "carrier": "Air Arabia",
+        "flightNumber": "G9413",
+        "origin": "SHJ",
+        "destination": "DXB",
+        "departure": "2026-12-01T09:00:00+04:00",
+        "arrival": "2026-12-01T09:40:00+04:00",
+        "durationMinutes": 40,
+        "originTimezone": "GST (UTC+4)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 220
+  },
+  {
+    "id": "offer-006",
+    "route": "lahore-to-dubai",
+    "price": 71400,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Pakistan International Airlines",
+    "airlineCode": "PIA",
+    "segments": [
+      {
+        "carrier": "Pakistan International Airlines",
+        "flightNumber": "PK321",
+        "origin": "LHE",
+        "destination": "DXB",
+        "departure": "2026-12-01T08:15:00+05:00",
+        "arrival": "2026-12-01T09:30:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-007",
+    "route": "lahore-to-dubai",
+    "price": 66800,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Airblue",
+    "airlineCode": "AB",
+    "segments": [
+      {
+        "carrier": "Airblue",
+        "flightNumber": "AB217",
+        "origin": "LHE",
+        "destination": "DXB",
+        "departure": "2026-12-01T18:45:00+05:00",
+        "arrival": "2026-12-01T20:00:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-008",
+    "route": "islamabad-to-dubai",
+    "price": 74200,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Emirates",
+    "airlineCode": "EK",
+    "segments": [
+      {
+        "carrier": "Emirates",
+        "flightNumber": "EK606",
+        "origin": "ISB",
+        "destination": "DXB",
+        "departure": "2026-12-01T10:00:00+05:00",
+        "arrival": "2026-12-01T11:15:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-009",
+    "route": "karachi-to-doha",
+    "price": 82300,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Qatar Airways",
+    "airlineCode": "QR",
+    "segments": [
+      {
+        "carrier": "Qatar Airways",
+        "flightNumber": "QR1332",
+        "origin": "KHI",
+        "destination": "DOH",
+        "departure": "2026-12-01T07:30:00+05:00",
+        "arrival": "2026-12-01T09:05:00+03:00",
+        "durationMinutes": 155,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "AST (UTC+3)"
+      }
+    ],
+    "durationMinutes": 155
+  },
+  {
+    "id": "offer-010",
+    "route": "karachi-to-doha",
+    "price": 79800,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "1plus",
+    "airline": "Gulf Air",
+    "airlineCode": "GF",
+    "segments": [
+      {
+        "carrier": "Gulf Air",
+        "flightNumber": "GF772",
+        "origin": "KHI",
+        "destination": "BAH",
+        "departure": "2026-12-01T05:45:00+05:00",
+        "arrival": "2026-12-01T07:10:00+03:00",
+        "durationMinutes": 165,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "AST (UTC+3)"
+      },
+      {
+        "carrier": "Gulf Air",
+        "flightNumber": "GF773",
+        "origin": "BAH",
+        "destination": "DOH",
+        "departure": "2026-12-01T09:30:00+03:00",
+        "arrival": "2026-12-01T10:15:00+03:00",
+        "durationMinutes": 45,
+        "originTimezone": "AST (UTC+3)",
+        "destinationTimezone": "AST (UTC+3)"
+      }
+    ],
+    "durationMinutes": 270
+  },
+  {
+    "id": "offer-011",
+    "route": "karachi-to-london",
+    "price": 215000,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Pakistan International Airlines",
+    "airlineCode": "PIA",
+    "segments": [
+      {
+        "carrier": "Pakistan International Airlines",
+        "flightNumber": "PK751",
+        "origin": "KHI",
+        "destination": "LHR",
+        "departure": "2026-12-01T23:30:00+05:00",
+        "arrival": "2026-12-02T05:10:00+00:00",
+        "durationMinutes": 460,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GMT (UTC+0)"
+      }
+    ],
+    "durationMinutes": 460
+  },
+  {
+    "id": "offer-012",
+    "route": "karachi-to-london",
+    "price": 198500,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "1plus",
+    "airline": "Emirates",
+    "airlineCode": "EK",
+    "segments": [
+      {
+        "carrier": "Emirates",
+        "flightNumber": "EK602",
+        "origin": "KHI",
+        "destination": "DXB",
+        "departure": "2026-12-01T14:30:00+05:00",
+        "arrival": "2026-12-01T15:45:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      },
+      {
+        "carrier": "Emirates",
+        "flightNumber": "EK12",
+        "origin": "DXB",
+        "destination": "LHR",
+        "departure": "2026-12-01T18:20:00+04:00",
+        "arrival": "2026-12-01T23:05:00+00:00",
+        "durationMinutes": 405,
+        "originTimezone": "GST (UTC+4)",
+        "destinationTimezone": "GMT (UTC+0)"
+      }
+    ],
+    "durationMinutes": 540
+  },
+  {
+    "id": "offer-013",
+    "route": "lahore-to-london",
+    "price": 207000,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "British Airways",
+    "airlineCode": "BA",
+    "segments": [
+      {
+        "carrier": "British Airways",
+        "flightNumber": "BA2627",
+        "origin": "LHE",
+        "destination": "LHR",
+        "departure": "2026-12-01T22:45:00+05:00",
+        "arrival": "2026-12-02T04:20:00+00:00",
+        "durationMinutes": 455,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GMT (UTC+0)"
+      }
+    ],
+    "durationMinutes": 455
+  },
+  {
+    "id": "offer-014",
+    "route": "karachi-to-lahore",
+    "price": 22500,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "SereneAir",
+    "airlineCode": "ER",
+    "segments": [
+      {
+        "carrier": "SereneAir",
+        "flightNumber": "ER101",
+        "origin": "KHI",
+        "destination": "LHE",
+        "departure": "2026-12-01T07:00:00+05:00",
+        "arrival": "2026-12-01T08:35:00+05:00",
+        "durationMinutes": 95,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "PKT (UTC+5)"
+      }
+    ],
+    "durationMinutes": 95
+  },
+  {
+    "id": "offer-015",
+    "route": "karachi-to-lahore",
+    "price": 19800,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Airblue",
+    "airlineCode": "AB",
+    "segments": [
+      {
+        "carrier": "Airblue",
+        "flightNumber": "AB203",
+        "origin": "KHI",
+        "destination": "LHE",
+        "departure": "2026-12-01T12:15:00+05:00",
+        "arrival": "2026-12-01T13:50:00+05:00",
+        "durationMinutes": 95,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "PKT (UTC+5)"
+      }
+    ],
+    "durationMinutes": 95
+  },
+  {
+    "id": "offer-016",
+    "route": "lahore-to-islamabad",
+    "price": 17600,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "PIA",
+    "airlineCode": "PIA",
+    "segments": [
+      {
+        "carrier": "Pakistan International Airlines",
+        "flightNumber": "PK304",
+        "origin": "LHE",
+        "destination": "ISB",
+        "departure": "2026-12-01T09:00:00+05:00",
+        "arrival": "2026-12-01T10:10:00+05:00",
+        "durationMinutes": 70,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "PKT (UTC+5)"
+      }
+    ],
+    "durationMinutes": 70
+  },
+  {
+    "id": "offer-017",
+    "route": "karachi-to-islamabad",
+    "price": 24300,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "SereneAir",
+    "airlineCode": "ER",
+    "segments": [
+      {
+        "carrier": "SereneAir",
+        "flightNumber": "ER205",
+        "origin": "KHI",
+        "destination": "ISB",
+        "departure": "2026-12-01T15:00:00+05:00",
+        "arrival": "2026-12-01T16:30:00+05:00",
+        "durationMinutes": 90,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "PKT (UTC+5)"
+      }
+    ],
+    "durationMinutes": 90
+  },
+  {
+    "id": "offer-018",
+    "route": "karachi-to-dubai",
+    "price": 88000,
+    "currency": "PKR",
+    "cabin": "business",
+    "stops": "nonstop",
+    "airline": "Pakistan International Airlines",
+    "airlineCode": "PIA",
+    "segments": [
+      {
+        "carrier": "Pakistan International Airlines",
+        "flightNumber": "PK301",
+        "origin": "KHI",
+        "destination": "DXB",
+        "departure": "2026-12-01T09:00:00+05:00",
+        "arrival": "2026-12-01T10:15:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-019",
+    "route": "karachi-to-dubai",
+    "price": 59500,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Air Arabia",
+    "airlineCode": "G9",
+    "segments": [
+      {
+        "carrier": "Air Arabia",
+        "flightNumber": "G9410",
+        "origin": "KHI",
+        "destination": "DXB",
+        "departure": "2026-12-01T11:00:00+05:00",
+        "arrival": "2026-12-01T12:15:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-020",
+    "route": "karachi-to-dubai",
+    "price": 124000,
+    "currency": "PKR",
+    "cabin": "first",
+    "stops": "nonstop",
+    "airline": "Emirates",
+    "airlineCode": "EK",
+    "segments": [
+      {
+        "carrier": "Emirates",
+        "flightNumber": "EK602",
+        "origin": "KHI",
+        "destination": "DXB",
+        "departure": "2026-12-01T14:30:00+05:00",
+        "arrival": "2026-12-01T15:45:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-021",
+    "route": "karachi-to-dubai",
+    "price": 67800,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Gulf Air",
+    "airlineCode": "GF",
+    "segments": [
+      {
+        "carrier": "Gulf Air",
+        "flightNumber": "GF772",
+        "origin": "KHI",
+        "destination": "DXB",
+        "departure": "2026-12-01T16:30:00+05:00",
+        "arrival": "2026-12-01T17:45:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-022",
+    "route": "lahore-to-dubai",
+    "price": 102000,
+    "currency": "PKR",
+    "cabin": "business",
+    "stops": "nonstop",
+    "airline": "Emirates",
+    "airlineCode": "EK",
+    "segments": [
+      {
+        "carrier": "Emirates",
+        "flightNumber": "EK606",
+        "origin": "LHE",
+        "destination": "DXB",
+        "departure": "2026-12-01T08:15:00+05:00",
+        "arrival": "2026-12-01T09:30:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-023",
+    "route": "karachi-to-london",
+    "price": 176000,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Virgin Atlantic",
+    "airlineCode": "VS",
+    "segments": [
+      {
+        "carrier": "Virgin Atlantic",
+        "flightNumber": "VS301",
+        "origin": "KHI",
+        "destination": "LHR",
+        "departure": "2026-12-01T21:00:00+05:00",
+        "arrival": "2026-12-02T02:40:00+00:00",
+        "durationMinutes": 460,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GMT (UTC+0)"
+      }
+    ],
+    "durationMinutes": 460
+  },
+  {
+    "id": "offer-024",
+    "route": "karachi-to-doha",
+    "price": 85500,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Qatar Airways",
+    "airlineCode": "QR",
+    "segments": [
+      {
+        "carrier": "Qatar Airways",
+        "flightNumber": "QR1332",
+        "origin": "KHI",
+        "destination": "DOH",
+        "departure": "2026-12-01T19:00:00+05:00",
+        "arrival": "2026-12-01T20:35:00+03:00",
+        "durationMinutes": 155,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "AST (UTC+3)"
+      }
+    ],
+    "durationMinutes": 155
+  },
+  {
+    "id": "offer-025",
+    "route": "karachi-to-lahore",
+    "price": 25900,
+    "currency": "PKR",
+    "cabin": "business",
+    "stops": "nonstop",
+    "airline": "PIA",
+    "airlineCode": "PIA",
+    "segments": [
+      {
+        "carrier": "Pakistan International Airlines",
+        "flightNumber": "PK301",
+        "origin": "KHI",
+        "destination": "LHE",
+        "departure": "2026-12-01T07:00:00+05:00",
+        "arrival": "2026-12-01T08:35:00+05:00",
+        "durationMinutes": 95,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "PKT (UTC+5)"
+      }
+    ],
+    "durationMinutes": 95
+  },
+  {
+    "id": "offer-026",
+    "route": "lahore-to-dubai",
+    "price": 63400,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "1plus",
+    "airline": "FlyDubai",
+    "airlineCode": "FZ",
+    "segments": [
+      {
+        "carrier": "FlyDubai",
+        "flightNumber": "FZ334",
+        "origin": "LHE",
+        "destination": "SHJ",
+        "departure": "2026-12-01T20:30:00+05:00",
+        "arrival": "2026-12-01T21:40:00+04:00",
+        "durationMinutes": 130,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      },
+      {
+        "carrier": "FlyDubai",
+        "flightNumber": "FZ335",
+        "origin": "SHJ",
+        "destination": "DXB",
+        "departure": "2026-12-01T23:20:00+04:00",
+        "arrival": "2026-12-01T23:55:00+04:00",
+        "durationMinutes": 35,
+        "originTimezone": "GST (UTC+4)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 205
+  },
+  {
+    "id": "offer-027",
+    "route": "islamabad-to-dubai",
+    "price": 70100,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "FlyDubai",
+    "airlineCode": "FZ",
+    "segments": [
+      {
+        "carrier": "FlyDubai",
+        "flightNumber": "FZ338",
+        "origin": "ISB",
+        "destination": "DXB",
+        "departure": "2026-12-01T10:00:00+05:00",
+        "arrival": "2026-12-01T11:15:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-028",
+    "route": "karachi-to-islamabad",
+    "price": 21800,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Airblue",
+    "airlineCode": "AB",
+    "segments": [
+      {
+        "carrier": "Airblue",
+        "flightNumber": "AB304",
+        "origin": "KHI",
+        "destination": "ISB",
+        "departure": "2026-12-01T18:00:00+05:00",
+        "arrival": "2026-12-01T19:30:00+05:00",
+        "durationMinutes": 90,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "PKT (UTC+5)"
+      }
+    ],
+    "durationMinutes": 90
+  },
+  {
+    "id": "offer-029",
+    "route": "karachi-to-dubai",
+    "price": 76000,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Qatar Airways",
+    "airlineCode": "QR",
+    "segments": [
+      {
+        "carrier": "Qatar Airways",
+        "flightNumber": "QR1332",
+        "origin": "KHI",
+        "destination": "DXB",
+        "departure": "2026-12-01T09:00:00+05:00",
+        "arrival": "2026-12-01T10:15:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  },
+  {
+    "id": "offer-030",
+    "route": "karachi-to-dubai",
+    "price": 54200,
+    "currency": "PKR",
+    "cabin": "economy",
+    "stops": "nonstop",
+    "airline": "Air Arabia",
+    "airlineCode": "G9",
+    "segments": [
+      {
+        "carrier": "Air Arabia",
+        "flightNumber": "G9410",
+        "origin": "KHI",
+        "destination": "DXB",
+        "departure": "2026-12-01T11:00:00+05:00",
+        "arrival": "2026-12-01T12:15:00+04:00",
+        "durationMinutes": 135,
+        "originTimezone": "PKT (UTC+5)",
+        "destinationTimezone": "GST (UTC+4)"
+      }
+    ],
+    "durationMinutes": 135
+  }
+]
