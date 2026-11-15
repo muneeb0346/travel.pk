@@ -42,6 +42,7 @@ next-env.d.ts
 
 # others
 
-# cline memory and rules
+# memory and rules
 .clinerules
 .cline-memory
+.kilo
