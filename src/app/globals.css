@@ -8,8 +8,6 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,12 +31,4 @@ body {
 
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.4);
-}
-
-@media (max-width: 639px) {
-  main {
-    max-width: 100vw;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
 }
