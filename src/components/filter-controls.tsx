@@ -27,14 +27,17 @@ const AIRLINE_OPTIONS = [
   "FlyDubai",
   "Gulf Air",
   "Pakistan International Airlines",
-  "PIA",
   "Qatar Airways",
   "SereneAir",
   "Virgin Atlantic",
 ];
 
-const inputClasses =
-  "block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700";
+function normalizeAirlineParam(value: string): string {
+  return value.trim().toLowerCase() === "pia" ? "Pakistan International Airlines" : value.trim();
+}
+
+const fieldClass =
+  "block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--foreground)] shadow-sm focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]";
 
 function hasActiveFilters(params: SearchParams, selectedAirlines: string[]): boolean {
   return (
@@ -54,8 +57,9 @@ export function FilterControls({
   const [selectedAirlines, setSelectedAirlines] = useState<string[]>(
     (params.airlines ?? "")
       .split(",")
-      .map((airline) => airline.trim())
+      .map((airline) => normalizeAirlineParam(airline))
       .filter(Boolean)
+      .filter((airline, index, arr) => arr.indexOf(airline) === index)
   );
   const [priceDraft, setPriceDraft] = useState(params.price ?? "");
 
@@ -63,8 +67,9 @@ export function FilterControls({
     setSelectedAirlines(
       (params.airlines ?? "")
         .split(",")
-        .map((airline) => airline.trim())
+        .map((airline) => normalizeAirlineParam(airline))
         .filter(Boolean)
+        .filter((airline, index, arr) => arr.indexOf(airline) === index)
     );
   }, [params.airlines]);
 
@@ -100,82 +105,103 @@ export function FilterControls({
   }
 
   return (
-    <section className="flex flex-col sm:flex-row sm:items-end gap-3 border border-slate-200 rounded-lg p-4 sm:p-5 bg-slate-50/50">
-      <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-        <label htmlFor="cabin-select" className="text-xs font-medium text-slate-600 uppercase tracking-wider">
-          Cabin
-        </label>
-        <select
-          id="cabin-select"
-          value={params.cabin ?? "any"}
-          onChange={(event) => toggleCabin(event.target.value)}
-          className={inputClasses}
-        >
-          {CABIN_OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+    <section
+      aria-label="Filter controls"
+      className="flex w-full flex-col gap-4 lg:flex-1"
+    >
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="flex flex-col gap-1.5">
+          <label
+            htmlFor="cabin-select"
+            className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]"
+          >
+            Cabin
+          </label>
+          <select
+            id="cabin-select"
+            value={params.cabin ?? "any"}
+            onChange={(event) => toggleCabin(event.target.value)}
+            className={fieldClass}
+          >
+            {CABIN_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <label
+            htmlFor="stops-select"
+            className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]"
+          >
+            Stops
+          </label>
+          <select
+            id="stops-select"
+            value={params.stops ?? "any"}
+            onChange={(event) => toggleStops(event.target.value)}
+            className={fieldClass}
+          >
+            {STOPS_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-1.5 sm:col-span-2 lg:col-span-1">
+          <label
+            htmlFor="price-input"
+            className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]"
+          >
+            Max price (PKR)
+          </label>
+          <input
+            id="price-input"
+            type="number"
+            min="0"
+            inputMode="numeric"
+            value={priceDraft}
+            onChange={(event) => setPriceDraft(event.target.value)}
+            onBlur={commitPrice}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") commitPrice();
+            }}
+            className={fieldClass}
+            placeholder="Any price"
+          />
+        </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-        <label htmlFor="stops-select" className="text-xs font-medium text-slate-600 uppercase tracking-wider">
-          Stops
-        </label>
-        <select
-          id="stops-select"
-          value={params.stops ?? "any"}
-          onChange={(event) => toggleStops(event.target.value)}
-          className={inputClasses}
-        >
-          {STOPS_OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-        <label className="text-xs font-medium text-slate-600 uppercase tracking-wider">
+      <fieldset className="min-w-0">
+        <legend className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
           Airlines
-        </label>
-        <div className="flex flex-wrap gap-2">
+        </legend>
+        <div className="mt-2 grid gap-2 sm:grid-cols-2">
           {AIRLINE_OPTIONS.map((airline) => (
-            <label key={airline} className="flex items-center gap-2 text-sm">
+            <label
+              key={airline}
+              className="flex min-w-0 cursor-pointer items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] transition-colors hover:bg-slate-800/60"
+            >
               <input
                 type="checkbox"
                 checked={selectedAirlines.includes(airline)}
                 onChange={() => toggleAirline(airline)}
-                className="rounded border-slate-300 text-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700"
+                className="h-4 w-4 shrink-0 rounded border-[var(--border)] bg-[var(--surface)] text-[var(--accent)] accent-[var(--accent)] focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
               />
-              {airline}
+              <span className="break-words">{airline}</span>
             </label>
           ))}
         </div>
-      </div>
-
-      <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-        <label htmlFor="price-input" className="text-xs font-medium text-slate-600 uppercase tracking-wider">
-          Max price (PKR)
-        </label>
-        <input
-          id="price-input"
-          type="number"
-          min="0"
-          value={priceDraft}
-          onChange={(event) => setPriceDraft(event.target.value)}
-          onBlur={commitPrice}
-          onKeyDown={(event) => {
-            if (event.key === "Enter") commitPrice();
-          }}
-          className={inputClasses}
-        />
-      </div>
+      </fieldset>
 
       {active && (
-        <ClearFiltersButton params={params} />
+        <div className="flex">
+          <ClearFiltersButton params={params} />
+        </div>
       )}
     </section>
   );

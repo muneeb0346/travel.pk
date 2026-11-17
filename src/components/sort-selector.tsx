@@ -17,9 +17,12 @@ export function SortSelector({
 }) {
   const router = useRouter();
   return (
-    <div className="flex flex-col gap-1 w-full sm:w-auto">
-      <label htmlFor="sort-select" className="text-xs font-medium text-slate-600 uppercase tracking-wider">
-        Sort
+    <div className="flex flex-col gap-1.5">
+      <label
+        htmlFor="sort-select"
+        className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]"
+      >
+        Sort by
       </label>
       <select
         id="sort-select"
@@ -27,7 +30,7 @@ export function SortSelector({
         onChange={(event) => {
           router.push(`?${buildSearchParams(params, { sort: event.target.value })}`);
         }}
-        className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700"
+        className="block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--foreground)] shadow-sm focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
       >
         {SORT_OPTIONS.map((option) => (
           <option key={option.value} value={option.value}>

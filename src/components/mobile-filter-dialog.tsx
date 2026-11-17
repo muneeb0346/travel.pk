@@ -14,10 +14,10 @@ export function MobileFilterDialog({
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    if (dialogRef.current) {
-      if (open) dialogRef.current.showModal();
-      else dialogRef.current.close();
-    }
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (open && !dialog.open) dialog.showModal();
+    if (!open && dialog.open) dialog.close();
   }, [open]);
 
   function handleDialogClick(event: React.MouseEvent<HTMLDialogElement>) {
@@ -25,41 +25,64 @@ export function MobileFilterDialog({
   }
 
   return (
-    <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="flex sm:hidden items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700"
-      >
-        Filters
-      </button>
+    <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-sm">
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <p className="text-sm font-semibold text-[var(--foreground)]">Filters & sort</p>
+          <p className="text-sm text-[var(--muted)]">Refine results without leaving this page.</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="inline-flex items-center justify-center rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)] shadow-sm transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+        >
+          Open filters
+        </button>
+      </div>
+
       <dialog
         ref={dialogRef}
+        aria-labelledby="mobile-filters-title"
         onClick={handleDialogClick}
-        className="border border-slate-200 bg-white rounded-lg p-5 shadow-xl max-w-md w-full sm:max-w-lg"
+        onClose={() => setOpen(false)}
+        className="m-auto w-[calc(100vw-1.5rem)] max-w-xl rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-0 text-[var(--foreground)] shadow-xl backdrop:bg-slate-900/55 sm:w-full"
       >
-        <form method="dialog">
-          <button
-            type="submit"
-            className="absolute top-3 right-3 rounded-md p-1.5 text-slate-400 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700"
-            aria-label="Close filters"
-          >
-            ✕
-          </button>
-        </form>
-        <h2 className="text-lg font-bold mb-4">Filters</h2>
-        <FilterControls params={params} />
-        <SortSelector params={params} />
-        <div className="mt-5 flex justify-end">
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700"
-          >
-            Done
-          </button>
+        <div className="flex max-h-[85vh] flex-col">
+          <div className="flex items-start justify-between gap-4 border-b border-[var(--border)] px-5 py-4">
+            <div>
+              <h2 id="mobile-filters-title" className="text-lg font-semibold">
+                Filters and sorting
+              </h2>
+              <p className="mt-1 text-sm text-[var(--muted)]">
+                Changes apply immediately and stay in the URL.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm font-medium text-[var(--foreground)] hover:bg-slate-800 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+              aria-label="Close filters"
+            >
+              Close
+            </button>
+          </div>
+          <div className="space-y-5 overflow-y-auto px-5 py-5">
+            <FilterControls params={params} />
+            <div className="border-t border-[var(--border)] pt-5">
+              <SortSelector params={params} />
+            </div>
+          </div>
+          <div className="border-t border-[var(--border)] px-5 py-4">
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="inline-flex w-full items-center justify-center rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)] shadow-sm transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            >
+              Done
+            </button>
+          </div>
         </div>
       </dialog>
-    </>
+    </div>
   );
 }

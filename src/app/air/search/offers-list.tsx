@@ -82,7 +82,15 @@ function activeFiltersDescription(params: SearchParams): string | null {
   if (params.stops && params.stops !== "any") parts.push(params.stops);
   if (params.airlines) parts.push(`airlines: ${params.airlines}`);
   if (params.price) parts.push(`max PKR ${params.price}`);
-  return parts.length ? parts.join(" \u00b7 ") : null;
+  return parts.length ? parts.join(" · ") : null;
+}
+
+function formatDuration(minutes: number): string {
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  if (hours === 0) return `${mins}m`;
+  if (mins === 0) return `${hours}h`;
+  return `${hours}h ${mins}m`;
 }
 
 export default async function OffersList({
@@ -114,12 +122,17 @@ export default async function OffersList({
 
   if (!res.ok) {
     return (
-      <section>
-        <p role="status" aria-live="polite">
+      <section className="rounded-2xl border border-red-900/50 bg-red-950/30 p-5 text-red-100 shadow-sm sm:p-6">
+        <p role="status" aria-live="polite" className="text-base font-medium">
           Unable to load flights. The service is temporarily unavailable.
         </p>
-        <RetryButton />
-        <ul aria-label="Flight results"></ul>
+        <p className="mt-2 text-sm text-red-200">
+          Your search and filters are still applied. Try again in a moment.
+        </p>
+        <div className="mt-4">
+          <RetryButton />
+        </div>
+        <ul aria-label="Flight results" className="sr-only"></ul>
       </section>
     );
   }
@@ -139,65 +152,103 @@ export default async function OffersList({
   const filters = activeFiltersDescription(params);
 
   return (
-    <section>
+    <section className="space-y-4">
       {data.failedAirlines.length > 0 && (
-        <div role="status" aria-live="polite" className="mb-3 rounded-md bg-amber-50 p-3 text-sm text-amber-800">
-          Partial results {'\u2014'} {data.failedAirlines.join(
-            ", "
-                        )} couldn{'\u2019'}t be loaded.
+        <div
+          role="status"
+          aria-live="polite"
+          className="rounded-2xl border border-amber-900/50 bg-amber-950/30 p-4 text-sm text-amber-100 shadow-sm"
+        >
+          <p className="font-medium">Partial results</p>
+          <p className="mt-1">
+            {data.failedAirlines.join(", ")} couldn&apos;t be loaded. Showing available offers below.
+          </p>
         </div>
       )}
-      <p role="status" aria-live="polite">
+
+      <p role="status" aria-live="polite" className="text-sm font-medium text-[var(--muted)]">
         {offers.length} flight result{offers.length !== 1 ? "s" : ""} found
       </p>
-      <ul aria-label="Flight results" className="divide-y divide-slate-200">
+
+      <ul aria-label="Flight results" className="space-y-4">
         {offers.length > 0 ? (
           offers.map((offer) => (
-            <li key={offer.id} className="py-4">
-              <div className="flex flex-col sm:flex-row sm:items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="font-semibold">{offer.airline}</div>
-                  <div className="text-xs text-slate-500">
-                    {offer.airlineCode} {offer.segments[0]?.flightNumber ?? ""}
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-lg font-bold">
-                      {formatPrice(offer.price)}
+            <li
+              key={offer.id}
+              className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5"
+            >
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <p className="text-base font-semibold text-[var(--foreground)] sm:text-lg">
+                      {offer.airline}
+                    </p>
+                    <p className="text-sm text-[var(--muted)]">
+                      {offer.airlineCode} {offer.segments[0]?.flightNumber ?? ""}
+                    </p>
+                    <span className="rounded-full bg-slate-800 px-2.5 py-0.5 text-xs font-medium capitalize text-slate-200">
+                      {offer.cabin}
                     </span>
-                    <span className="text-xs text-slate-500">{offer.cabin}</span>
+                    <span className="rounded-full bg-slate-800 px-2.5 py-0.5 text-xs font-medium text-slate-200">
+                      {offer.stops === "nonstop" ? "Nonstop" : "1+ stops"}
+                    </span>
                   </div>
-                  <div className="text-sm text-slate-600 space-y-1">
+
+                  <div className="mt-4 space-y-3">
                     {offer.segments.map((segment) => (
                       <div
                         key={`${segment.origin}-${segment.destination}`}
-                        className="overflow-hidden overflow-x-clip"
+                        className="grid gap-1 text-sm text-[var(--foreground)] sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:items-center sm:gap-3"
                       >
-                        {segment.origin} {'\u2192'} {segment.destination}
-                        <br />
-                        <span className="text-xs font-mono">
-                          {segment.departure.slice(11, 16)} {segment.originTimezone}
-                          {" \u2192 "}
-                          {segment.arrival.slice(11, 16)} {segment.destinationTimezone}
-                        </span>
+                        <div className="min-w-0">
+                          <p className="font-medium">
+                            {segment.departure.slice(11, 16)}{" "}
+                            <span className="text-[var(--muted)]">{segment.origin}</span>
+                          </p>
+                          <p className="text-xs text-[var(--muted)]">{segment.originTimezone}</p>
+                        </div>
+                        <div className="hidden text-center text-xs text-[var(--muted)] sm:block" aria-hidden="true">
+                          →
+                        </div>
+                        <div className="min-w-0 sm:text-right">
+                          <p className="font-medium">
+                            {segment.arrival.slice(11, 16)}{" "}
+                            <span className="text-[var(--muted)]">{segment.destination}</span>
+                          </p>
+                          <p className="text-xs text-[var(--muted)]">{segment.destinationTimezone}</p>
+                        </div>
                       </div>
                     ))}
-                    <div className="mt-1 text-xs text-slate-500">
-                      {offer.durationMinutes} min
-                    </div>
                   </div>
+
+                  <p className="mt-3 text-sm text-[var(--muted)]">
+                    Duration: {formatDuration(offer.durationMinutes)}
+                  </p>
+                </div>
+
+                <div className="shrink-0 border-t border-[var(--border)] pt-3 sm:border-t-0 sm:pt-0 sm:text-right">
+                  <p className="text-xs font-medium uppercase tracking-wide text-[var(--muted)]">Total fare</p>
+                  <p className="mt-1 text-xl font-semibold text-[var(--foreground)] sm:text-2xl">
+                    {formatPrice(offer.price)}
+                  </p>
                 </div>
               </div>
             </li>
           ))
         ) : (
-          <li key="none" className="py-4 text-slate-500">
-            No flights found.{filters ? ` Filters: ${filters}.` : ""}
+          <li className="rounded-2xl border border-dashed border-[var(--border)] bg-[var(--surface)] p-6 text-center shadow-sm sm:p-8">
+            <p className="text-base font-medium text-[var(--foreground)]">No flights found</p>
+            <p className="mt-2 text-sm text-[var(--muted)]">
+              {filters
+                ? `No offers match your active filters: ${filters}.`
+                : "No offers are available for this search right now. You can reset filters or try another search."}
+            </p>
+            <div className="mt-4 flex justify-center">
+              <ClearFiltersButton params={params} />
+            </div>
           </li>
         )}
       </ul>
-      {offers.length === 0 && filters && <ClearFiltersButton params={params} />}
     </section>
   );
 }
