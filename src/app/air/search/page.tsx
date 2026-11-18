@@ -2,8 +2,8 @@ import { Suspense } from "react";
 import OffersList from "./offers-list";
 import { ResultsSkeleton } from "./results-skeleton";
 import { FilterControls } from "@/components/filter-controls";
-import { SortSelector } from "@/components/sort-selector";
-import { MobileFilterDialog } from "@/components/mobile-filter-dialog";
+import { PageContainer } from "@/components/page-container";
+import { Card } from "@/components/card";
 
 export type SearchParams = {
   route?: string;
@@ -53,8 +53,8 @@ export default async function SearchPage({
   ].filter(Boolean);
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
-      <section className="mb-6 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm sm:p-7">
+    <PageContainer>
+      <Card>
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-teal-300">
           Live fares
         </p>
@@ -64,21 +64,14 @@ export default async function SearchPage({
         <p className="mt-2 max-w-3xl break-words text-sm leading-6 text-[var(--muted)] sm:text-base">
           {summary.length > 0 ? summary.join(" · ") : "Review available offers for your selected route."}
         </p>
-      </section>
-
-      <div className="mb-6 hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-sm sm:flex sm:items-end sm:justify-between sm:gap-4">
-        <FilterControls params={params} />
-        <div className="min-w-[14rem]">
-          <SortSelector params={params} />
+        <div className="mt-4">
+          <FilterControls params={params} />
         </div>
-      </div>
-      <div className="mb-6 sm:hidden">
-        <MobileFilterDialog params={params} />
-      </div>
+      </Card>
 
       <Suspense key={params.route ?? ""} fallback={<ResultsSkeleton />}>
         <OffersList params={params} />
       </Suspense>
-    </main>
+    </PageContainer>
   );
 }

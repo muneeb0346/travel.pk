@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { pushParams } from "./retry-button";
-import { ClearFiltersButton } from "./clear-filters-button";
 import type { SearchParams } from "@/app/air/search/page";
 
 const CABIN_OPTIONS: { value: string; label: string }[] = [
@@ -19,6 +18,12 @@ const STOPS_OPTIONS: { value: string; label: string }[] = [
   { value: "1plus", label: "1+ stops" },
 ];
 
+const SORT_OPTIONS: { value: string; label: string }[] = [
+  { value: "price_asc", label: "Price: low to high" },
+  { value: "price_desc", label: "Price: high to low" },
+  { value: "duration", label: "Shortest duration" },
+];
+
 const AIRLINE_OPTIONS = [
   "Air Arabia",
   "Airblue",
@@ -32,20 +37,20 @@ const AIRLINE_OPTIONS = [
   "Virgin Atlantic",
 ];
 
+const fieldClass =
+  "block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--foreground)] shadow-sm";
+
+const pillBase =
+  "inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] transition-all hover:border-[var(--accent)]";
+
+const pillActiveClass =
+  "bg-[var(--accent)] text-[var(--accent-foreground)] border-[var(--accent)] ring-2 ring-[var(--accent)] ring-offset-2 ring-offset-[var(--surface)]";
+
+const clearPillClass =
+  "inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-slate-800 transition-all";
+
 function normalizeAirlineParam(value: string): string {
   return value.trim().toLowerCase() === "pia" ? "Pakistan International Airlines" : value.trim();
-}
-
-const fieldClass =
-  "block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--foreground)] shadow-sm focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]";
-
-function hasActiveFilters(params: SearchParams, selectedAirlines: string[]): boolean {
-  return (
-    (params.cabin !== undefined && params.cabin !== "any") ||
-    (params.stops !== undefined && params.stops !== "any") ||
-    selectedAirlines.length > 0 ||
-    (params.price !== undefined && params.price !== "")
-  );
 }
 
 export function FilterControls({
@@ -54,7 +59,18 @@ export function FilterControls({
   params: SearchParams;
 }) {
   const router = useRouter();
-  const [selectedAirlines, setSelectedAirlines] = useState<string[]>(
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const updateScrollState = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
+  };
+
+  const [selectedAirlines, setSelectedAirlines] = useState<string[]>(() =>
     (params.airlines ?? "")
       .split(",")
       .map((airline) => normalizeAirlineParam(airline))
@@ -62,6 +78,22 @@ export function FilterControls({
       .filter((airline, index, arr) => arr.indexOf(airline) === index)
   );
   const [priceDraft, setPriceDraft] = useState(params.price ?? "");
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    updateScrollState();
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, []);
+
+  useEffect(() => {
+    updateScrollState();
+  }, [selectedAirlines]);
 
   useEffect(() => {
     setSelectedAirlines(
@@ -77,14 +109,16 @@ export function FilterControls({
     setPriceDraft(params.price ?? "");
   }, [params.price]);
 
-  const active = hasActiveFilters(params, selectedAirlines);
-
   function toggleCabin(value: string) {
     pushParams(router, params, { cabin: value === "any" ? undefined : value });
   }
 
   function toggleStops(value: string) {
     pushParams(router, params, { stops: value === "any" ? undefined : value });
+  }
+
+  function toggleSort(value: string) {
+    pushParams(router, params, { sort: value });
   }
 
   function toggleAirline(airline: string) {
@@ -104,105 +138,153 @@ export function FilterControls({
     pushParams(router, params, { price: value });
   }
 
+  function clearFilters() {
+    const sp = new URLSearchParams();
+    if (params.route) sp.set("route", params.route);
+    if (params.date) sp.set("date", params.date);
+    if (params.pax) sp.set("pax", params.pax);
+    if (params.sort) sp.set("sort", params.sort);
+    if (params.simulate) sp.set("simulate", params.simulate);
+    router.push(`?${sp.toString()}`);
+  }
+
   return (
-    <section
-      aria-label="Filter controls"
-      className="flex w-full flex-col gap-4 lg:flex-1"
-    >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="flex flex-col gap-1.5">
-          <label
-            htmlFor="cabin-select"
-            className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]"
-          >
-            Cabin
-          </label>
-          <select
-            id="cabin-select"
-            value={params.cabin ?? "any"}
-            onChange={(event) => toggleCabin(event.target.value)}
-            className={fieldClass}
-          >
-            {CABIN_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+    <section aria-label="Filter controls" className="relative w-full">
+      <div className="flex flex-col gap-2">
+        {/* Row 1: cabin, stops, price, sort */}
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 min-w-0">
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="cabin-select"
+              className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]"
+            >
+              Cabin
+            </label>
+            <select
+              id="cabin-select"
+              value={params.cabin ?? "any"}
+              onChange={(event) => toggleCabin(event.target.value)}
+              className={fieldClass}
+            >
+              {CABIN_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="stops-select"
+              className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]"
+            >
+              Stops
+            </label>
+            <select
+              id="stops-select"
+              value={params.stops ?? "any"}
+              onChange={(event) => toggleStops(event.target.value)}
+              className={fieldClass}
+            >
+              {STOPS_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="price-input"
+              className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]"
+            >
+              Max price (PKR)
+            </label>
+            <input
+              id="price-input"
+              type="number"
+              min="0"
+              inputMode="numeric"
+              value={priceDraft}
+              onChange={(event) => setPriceDraft(event.target.value)}
+              onBlur={commitPrice}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") commitPrice();
+              }}
+              className={fieldClass}
+              placeholder="Any price"
+            />
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="sort-select"
+              className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]"
+            >
+              Sort by
+            </label>
+            <select
+              id="sort-select"
+              value={params.sort ?? "price_asc"}
+              onChange={(event) => toggleSort(event.target.value)}
+              className={fieldClass}
+            >
+              {SORT_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <label
-            htmlFor="stops-select"
-            className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]"
+        {/* Row 2: airlines pills (scrollable) + clear cross sibling on right */}
+        <div className="flex items-start gap-2 min-w-0">
+          <div className="relative flex flex-1 min-w-0 overflow-hidden">
+            <div
+              ref={scrollRef}
+              className="overflow-x-auto w-full min-w-0 flex-nowrap gap-2 scrollbar-none flex"
+            >
+              {AIRLINE_OPTIONS.map((airline) => (
+                <label
+                  key={airline}
+                  className={`${pillBase} ${selectedAirlines.includes(airline) ? pillActiveClass : ""}`}
+                  onPointerDown={(event) => event.preventDefault()}
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedAirlines.includes(airline)}
+                    onChange={() => toggleAirline(airline)}
+                    className="peer sr-only"
+                  />
+                  <span className="whitespace-nowrap">{airline}</span>
+                </label>
+              ))}
+            </div>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-[var(--surface)] to-transparent transition-opacity duration-300"
+              style={{ opacity: canScrollLeft ? 1 : 0 }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[var(--surface)] to-transparent transition-opacity duration-300"
+              style={{ opacity: canScrollRight ? 1 : 0 }}
+            />
+          </div>
+          <button
+            type="button"
+            onClick={clearFilters}
+            aria-label="Clear filters"
+            className={clearPillClass}
+            style={{ minWidth: "auto" }}
           >
-            Stops
-          </label>
-          <select
-            id="stops-select"
-            value={params.stops ?? "any"}
-            onChange={(event) => toggleStops(event.target.value)}
-            className={fieldClass}
-          >
-            {STOPS_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="flex flex-col gap-1.5 sm:col-span-2 lg:col-span-1">
-          <label
-            htmlFor="price-input"
-            className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]"
-          >
-            Max price (PKR)
-          </label>
-          <input
-            id="price-input"
-            type="number"
-            min="0"
-            inputMode="numeric"
-            value={priceDraft}
-            onChange={(event) => setPriceDraft(event.target.value)}
-            onBlur={commitPrice}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") commitPrice();
-            }}
-            className={fieldClass}
-            placeholder="Any price"
-          />
+            ×
+          </button>
         </div>
       </div>
-
-      <fieldset className="min-w-0">
-        <legend className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
-          Airlines
-        </legend>
-        <div className="mt-2 grid gap-2 sm:grid-cols-2">
-          {AIRLINE_OPTIONS.map((airline) => (
-            <label
-              key={airline}
-              className="flex min-w-0 cursor-pointer items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] transition-colors hover:bg-slate-800/60"
-            >
-              <input
-                type="checkbox"
-                checked={selectedAirlines.includes(airline)}
-                onChange={() => toggleAirline(airline)}
-                className="h-4 w-4 shrink-0 rounded border-[var(--border)] bg-[var(--surface)] text-[var(--accent)] accent-[var(--accent)] focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-              />
-              <span className="break-words">{airline}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      {active && (
-        <div className="flex">
-          <ClearFiltersButton params={params} />
-        </div>
-      )}
     </section>
   );
 }

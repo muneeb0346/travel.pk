@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/button";
 import type { SearchParams } from "@/app/air/search/page";
 
 export function ClearFiltersButton({
@@ -10,8 +11,9 @@ export function ClearFiltersButton({
 }) {
   const router = useRouter();
   return (
-    <button
+    <Button
       type="button"
+      variant="outline"
       onClick={() => {
         const sp = new URLSearchParams();
         if (params.route) sp.set("route", params.route);
@@ -21,9 +23,8 @@ export function ClearFiltersButton({
         if (params.simulate) sp.set("simulate", params.simulate);
         router.push(`?${sp.toString()}`);
       }}
-      className="inline-flex items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm font-medium text-[var(--foreground)] transition-colors hover:bg-slate-800 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
     >
       Clear filters
-    </button>
+    </Button>
   );
 }

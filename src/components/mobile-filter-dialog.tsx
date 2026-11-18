@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FilterControls } from "@/components/filter-controls";
-import { SortSelector } from "@/components/sort-selector";
+import { Button } from "@/components/button";
 import type { SearchParams } from "@/app/air/search/page";
 
 export function MobileFilterDialog({
@@ -31,13 +31,13 @@ export function MobileFilterDialog({
           <p className="text-sm font-semibold text-[var(--foreground)]">Filters & sort</p>
           <p className="text-sm text-[var(--muted)]">Refine results without leaving this page.</p>
         </div>
-        <button
+        <Button
           type="button"
+          variant="primary"
           onClick={() => setOpen(true)}
-          className="inline-flex items-center justify-center rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)] shadow-sm transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           Open filters
-        </button>
+        </Button>
       </div>
 
       <dialog
@@ -57,29 +57,27 @@ export function MobileFilterDialog({
                 Changes apply immediately and stay in the URL.
               </p>
             </div>
-            <button
+            <Button
               type="button"
+              variant="outline"
               onClick={() => setOpen(false)}
-              className="rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm font-medium text-[var(--foreground)] hover:bg-slate-800 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
               aria-label="Close filters"
             >
               Close
-            </button>
+            </Button>
           </div>
           <div className="space-y-5 overflow-y-auto px-5 py-5">
             <FilterControls params={params} />
-            <div className="border-t border-[var(--border)] pt-5">
-              <SortSelector params={params} />
-            </div>
           </div>
           <div className="border-t border-[var(--border)] px-5 py-4">
-            <button
+            <Button
               type="button"
+              variant="primary"
+              className="w-full"
               onClick={() => setOpen(false)}
-              className="inline-flex w-full items-center justify-center rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)] shadow-sm transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             >
               Done
-            </button>
+            </Button>
           </div>
         </div>
       </dialog>

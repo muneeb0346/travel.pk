@@ -152,7 +152,7 @@ export default async function OffersList({
   const filters = activeFiltersDescription(params);
 
   return (
-    <section className="space-y-4">
+    <section className="mt-6 space-y-4">
       {data.failedAirlines.length > 0 && (
         <div
           role="status"
@@ -170,7 +170,7 @@ export default async function OffersList({
         {offers.length} flight result{offers.length !== 1 ? "s" : ""} found
       </p>
 
-      <ul aria-label="Flight results" className="space-y-4">
+      <ul aria-label="Flight results" className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {offers.length > 0 ? (
           offers.map((offer) => (
             <li
@@ -198,52 +198,62 @@ export default async function OffersList({
                     {offer.segments.map((segment) => (
                       <div
                         key={`${segment.origin}-${segment.destination}`}
-                        className="grid gap-1 text-sm text-[var(--foreground)] sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:items-center sm:gap-3"
+                        className="flex flex-col gap-1.5"
                       >
-                        <div className="min-w-0">
-                          <p className="font-medium">
-                            {segment.departure.slice(11, 16)}{" "}
-                            <span className="text-[var(--muted)]">{segment.origin}</span>
-                          </p>
-                          <p className="text-xs text-[var(--muted)]">{segment.originTimezone}</p>
-                        </div>
-                        <div className="hidden text-center text-xs text-[var(--muted)] sm:block" aria-hidden="true">
-                          →
-                        </div>
-                        <div className="min-w-0 sm:text-right">
-                          <p className="font-medium">
-                            {segment.arrival.slice(11, 16)}{" "}
-                            <span className="text-[var(--muted)]">{segment.destination}</span>
-                          </p>
-                          <p className="text-xs text-[var(--muted)]">{segment.destinationTimezone}</p>
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <div className="min-w-0 truncate">
+                            <p className="font-medium text-[var(--foreground)]">
+                              {segment.departure.slice(11, 16)}{" "}
+                              <span className="text-[var(--muted)]">{segment.origin}</span>
+                            </p>
+                            <p className="text-xs text-[var(--muted)]">
+                              {segment.originTimezone}
+                            </p>
+                          </div>
+                          <span
+                            className="shrink-0 text-[var(--muted)]"
+                            aria-hidden="true"
+                          >
+                            →
+                          </span>
+                          <div className="min-w-0 truncate text-right sm:text-left">
+                            <p className="font-medium text-[var(--foreground)]">
+                              {segment.arrival.slice(11, 16)}{" "}
+                              <span className="text-[var(--muted)]">{segment.destination}</span>
+                            </p>
+                            <p className="text-xs text-[var(--muted)]">
+                              {segment.destinationTimezone}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     ))}
                   </div>
-
-                  <p className="mt-3 text-sm text-[var(--muted)]">
-                    Duration: {formatDuration(offer.durationMinutes)}
-                  </p>
                 </div>
 
-                <div className="shrink-0 border-t border-[var(--border)] pt-3 sm:border-t-0 sm:pt-0 sm:text-right">
-                  <p className="text-xs font-medium uppercase tracking-wide text-[var(--muted)]">Total fare</p>
-                  <p className="mt-1 text-xl font-semibold text-[var(--foreground)] sm:text-2xl">
-                    {formatPrice(offer.price)}
+                <div className="shrink-0 flex items-end justify-between gap-3 border-t border-[var(--border)] pt-3 sm:flex-col sm:items-end sm:justify-start sm:gap-0 sm:border-t-0 sm:pt-0 sm:text-right">
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-wide text-[var(--muted)]">Total fare</p>
+                    <p className="mt-1 text-xl font-semibold text-[var(--foreground)] sm:text-2xl">
+                      {formatPrice(offer.price)}
+                    </p>
+                  </div>
+                  <p className="text-sm text-[var(--muted)]">
+                    Duration: {formatDuration(offer.durationMinutes)}
                   </p>
                 </div>
               </div>
             </li>
           ))
         ) : (
-          <li className="rounded-2xl border border-dashed border-[var(--border)] bg-[var(--surface)] p-6 text-center shadow-sm sm:p-8">
+          <li className="col-span-1 lg:col-span-2 rounded-2xl border border-dashed border-[var(--border)] bg-[var(--surface)] p-6 text-center shadow-sm sm:p-8">
             <p className="text-base font-medium text-[var(--foreground)]">No flights found</p>
             <p className="mt-2 text-sm text-[var(--muted)]">
               {filters
                 ? `No offers match your active filters: ${filters}.`
-                : "No offers are available for this search right now. You can reset filters or try another search."}
+                : "No offers are available for this search right now."}
             </p>
-            <div className="mt-4 flex justify-center">
+            <div className="mt-6 flex justify-center">
               <ClearFiltersButton params={params} />
             </div>
           </li>
