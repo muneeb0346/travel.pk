@@ -36,7 +36,7 @@ export default function KarachiToDubaiGuide() {
         </nav>
         <main id="main-content">
           <Card className="py-0 sm:p-8">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-teal-300">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent-soft)]">
               Route guide
             </p>
             <h1 className="mt-0 mb-6 text-3xl font-semibold tracking-tight text-[var(--foreground)] sm:text-4xl">
@@ -48,7 +48,7 @@ export default function KarachiToDubaiGuide() {
             </p>
 
             <div className="grid gap-6 sm:grid-cols-2">
-              <section aria-labelledby="airlines-heading" className="rounded-xl border border-[var(--border)] bg-slate-900/40 p-5">
+              <section aria-labelledby="airlines-heading" className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-5">
                 <h2 id="airlines-heading" className="text-lg font-semibold text-[var(--foreground)]">
                   Airlines on this route
                 </h2>
@@ -61,7 +61,7 @@ export default function KarachiToDubaiGuide() {
                 </ul>
               </section>
 
-              <section aria-labelledby="fares-heading" className="rounded-xl border border-[var(--border)] bg-slate-900/40 p-5">
+              <section aria-labelledby="fares-heading" className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-5">
                 <h2 id="fares-heading" className="text-lg font-semibold text-[var(--foreground)]">
                   Typical fares
                 </h2>
@@ -82,7 +82,7 @@ export default function KarachiToDubaiGuide() {
               </section>
             </div>
 
-            <section aria-labelledby="live-fares-heading" className="mt-8 rounded-xl border border-teal-900/50 bg-teal-950/30 p-5">
+            <section aria-labelledby="live-fares-heading" className="mt-8 rounded-xl border border-[var(--accent)] bg-[var(--accent-surface)] p-5">
               <h2 id="live-fares-heading" className="text-lg font-semibold text-[var(--foreground)]">
                 Search live fares
               </h2>

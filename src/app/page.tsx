@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <PageContainer>
       <Card className="py-0 sm:p-12">
-        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-teal-300">
+        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent-soft)]">
           Pakistan flight discovery
         </p>
         <h1 className="mb-6 text-4xl font-semibold tracking-tight text-[var(--foreground)] sm:text-5xl">

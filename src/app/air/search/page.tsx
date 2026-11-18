@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import OffersList from "./offers-list";
 import { ResultsSkeleton } from "./results-skeleton";
 import { FilterControls } from "@/components/filter-controls";
+import { MobileFilterDialog } from "@/components/mobile-filter-dialog";
 import { PageContainer } from "@/components/page-container";
 import { Card } from "@/components/card";
 
@@ -55,7 +56,7 @@ export default async function SearchPage({
   return (
     <PageContainer>
       <Card>
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-teal-300">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent-soft)]">
           Live fares
         </p>
         <h1 className="break-words text-2xl font-semibold tracking-tight text-[var(--foreground)] sm:text-3xl">
@@ -64,12 +65,15 @@ export default async function SearchPage({
         <p className="mt-2 max-w-3xl break-words text-sm leading-6 text-[var(--muted)] sm:text-base">
           {summary.length > 0 ? summary.join(" · ") : "Review available offers for your selected route."}
         </p>
-        <div className="mt-4">
+        <div className="mt-4 hidden sm:block">
           <FilterControls params={params} />
+        </div>
+        <div className="mt-4 sm:hidden">
+          <MobileFilterDialog params={params} />
         </div>
       </Card>
 
-      <Suspense key={params.route ?? ""} fallback={<ResultsSkeleton />}>
+      <Suspense key={JSON.stringify(params)} fallback={<ResultsSkeleton />}>
         <OffersList params={params} />
       </Suspense>
     </PageContainer>

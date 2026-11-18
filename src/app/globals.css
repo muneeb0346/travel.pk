@@ -8,6 +8,8 @@
   --muted: #94a3b8;
   --border: #1e293b;
   --accent: #0f766e;
+  --accent-soft: #5eead4;
+  --accent-surface: #042f2e;
   --accent-foreground: #ffffff;
 }
 
@@ -36,7 +38,8 @@ a {
 }
 
 :focus-visible {
-  outline: none;
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 2px;
 }
 
 dialog {

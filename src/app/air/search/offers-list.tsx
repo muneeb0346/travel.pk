@@ -132,7 +132,6 @@ export default async function OffersList({
         <div className="mt-4">
           <RetryButton />
         </div>
-        <ul aria-label="Flight results" className="sr-only"></ul>
       </section>
     );
   }
@@ -186,10 +185,10 @@ export default async function OffersList({
                     <p className="text-sm text-[var(--muted)]">
                       {offer.airlineCode} {offer.segments[0]?.flightNumber ?? ""}
                     </p>
-                    <span className="rounded-full bg-slate-800 px-2.5 py-0.5 text-xs font-medium capitalize text-slate-200">
+                    <span className="rounded-full bg-[var(--border)] px-2.5 py-0.5 text-xs font-medium capitalize text-[var(--foreground)]">
                       {offer.cabin}
                     </span>
-                    <span className="rounded-full bg-slate-800 px-2.5 py-0.5 text-xs font-medium text-slate-200">
+                    <span className="rounded-full bg-[var(--border)] px-2.5 py-0.5 text-xs font-medium text-[var(--foreground)]">
                       {offer.stops === "nonstop" ? "Nonstop" : "1+ stops"}
                     </span>
                   </div>

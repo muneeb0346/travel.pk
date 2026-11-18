@@ -45,7 +45,7 @@ export function MobileFilterDialog({
         aria-labelledby="mobile-filters-title"
         onClick={handleDialogClick}
         onClose={() => setOpen(false)}
-        className="m-auto w-[calc(100vw-1.5rem)] max-w-xl rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-0 text-[var(--foreground)] shadow-xl backdrop:bg-slate-900/55 sm:w-full"
+        className="m-auto w-[calc(100vw-1.5rem)] max-w-xl rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-0 text-[var(--foreground)] shadow-xl sm:w-full"
       >
         <div className="flex max-h-[85vh] flex-col">
           <div className="flex items-start justify-between gap-4 border-b border-[var(--border)] px-5 py-4">
@@ -66,7 +66,7 @@ export function MobileFilterDialog({
               Close
             </Button>
           </div>
-          <div className="space-y-5 overflow-y-auto px-5 py-5">
+          <div className="space-y-5 overflow-y-auto overscroll-contain px-5 py-5">
             <FilterControls params={params} />
           </div>
           <div className="border-t border-[var(--border)] px-5 py-4">
