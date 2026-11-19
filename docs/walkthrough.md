@@ -2,7 +2,7 @@
 
 **Four states covered:** results (`simulate=ok`), loading skeleton (`simulate=slow`), empty (`simulate=empty`), partial supplier failure (`simulate=partial`), plus the error state (`simulate=error`, HTTP 503). **Keyboard-only pass** included at the end.
 
-**Evidence basis:** this sandbox has no browser, so screenshots were not captured here. Instead, each state below is evidenced with real `curl` output against the running dev server (full captured files in `docs/evidence/`) and rendered-HTML excerpts. Reproduce locally in Chrome/Firefox for literal screenshots.
+**Evidence basis:** each state below is evidenced with real `curl` output against the running dev server (full captured files in `docs/evidence/`), rendered-HTML excerpts, and screenshots captured locally in Chrome/Firefox (stored under `docs/screenshots/`). Reproduce locally with the same `simulate=` query params.
 
 ## Prerequisite
 

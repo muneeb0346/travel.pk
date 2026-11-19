@@ -2,6 +2,7 @@
 
 **Target:** `https://travel.pk/air/search/?origin=KHI&destination=DXB&departure=2026-11-21`  
 **Tool:** Google Lighthouse 13.5.0 (Desktop)  
+**Evidence:** Lighthouse JSON report + network waterfall + screenshots captured locally in Chrome/Firefox.  
 
 ---
 
