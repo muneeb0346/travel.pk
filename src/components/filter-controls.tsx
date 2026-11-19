@@ -38,16 +38,16 @@ const AIRLINE_OPTIONS = [
 ];
 
 const fieldClass =
-  "block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--foreground)] shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-soft)]";
+  "block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--foreground)] shadow-sm focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-[var(--accent-soft)]";
 
 const pillBase =
-  "inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent)] has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--accent-soft)]";
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent)] has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-0 has-[:focus-visible]:outline-[var(--accent-soft)]";
 
 const pillActiveClass =
   "bg-[var(--accent)] text-[var(--accent-foreground)] border-[var(--accent)] ring-2 ring-[var(--accent)] ring-offset-2 ring-offset-[var(--surface)]";
 
 const clearPillClass =
-  "inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--muted)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--border)] hover:text-[var(--foreground)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-soft)]";
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-2 py-2 text-sm leading-none text-[var(--muted)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--border)] hover:text-[var(--foreground)] focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-[var(--accent-soft)]";
 
 function normalizeAirlineParam(value: string): string {
   return value.trim().toLowerCase() === "pia" ? "Pakistan International Airlines" : value.trim();
@@ -122,14 +122,12 @@ export function FilterControls({
   }
 
   function toggleAirline(airline: string) {
-    setSelectedAirlines((previous) => {
-      const next = previous.includes(airline)
-        ? previous.filter((item) => item !== airline)
-        : [...previous, airline];
-      pushParams(router, params, {
-        airlines: next.length > 0 ? next.join(",") : undefined,
-      });
-      return next;
+    const next = selectedAirlines.includes(airline)
+      ? selectedAirlines.filter((item) => item !== airline)
+      : [...selectedAirlines, airline];
+    setSelectedAirlines(next);
+    pushParams(router, params, {
+      airlines: next.length > 0 ? next.join(",") : undefined,
     });
   }
 
@@ -241,11 +239,11 @@ export function FilterControls({
         </div>
 
         {/* Row 2: airlines pills (scrollable) + clear cross sibling on right */}
-        <div className="flex items-start gap-2 min-w-0">
-          <div className="relative flex flex-1 min-w-0 overflow-hidden">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="relative flex flex-1 min-w-0">
             <div
               ref={scrollRef}
-              className="overflow-x-auto w-full min-w-0 flex-nowrap gap-2 py-1 scrollbar-none flex"
+              className="overflow-x-auto w-full flex-nowrap gap-2 p-1 scrollbar-none flex"
             >
               {AIRLINE_OPTIONS.map((airline) => (
                 <label
@@ -258,6 +256,18 @@ export function FilterControls({
                     checked={selectedAirlines.includes(airline)}
                     onChange={() => toggleAirline(airline)}
                     className="peer sr-only"
+                    onFocus={(event) => {
+                      const container = scrollRef.current;
+                      const target = event.currentTarget.parentElement;
+                      if (!container || !target) return;
+                      const containerRect = container.getBoundingClientRect();
+                      const targetRect = target.getBoundingClientRect();
+                      if (targetRect.left < containerRect.left) {
+                        container.scrollLeft -= containerRect.left - targetRect.left + 8;
+                      } else if (targetRect.right > containerRect.right) {
+                        container.scrollLeft += targetRect.right - containerRect.right + 8;
+                      }
+                    }}
                   />
                   <span className="whitespace-nowrap">{airline}</span>
                 </label>
@@ -279,9 +289,8 @@ export function FilterControls({
             onClick={clearFilters}
             aria-label="Clear filters"
             className={clearPillClass}
-            style={{ minWidth: "auto" }}
           >
-            ×
+            <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center leading-none">×</span>
           </button>
         </div>
       </div>
