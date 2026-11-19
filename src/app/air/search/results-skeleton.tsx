@@ -1,6 +1,6 @@
 export function ResultsSkeleton() {
   return (
-    <section className="space-y-4" aria-busy="true">
+    <section className="mt-6 space-y-4" aria-busy="true">
       <p role="status" aria-live="polite" className="sr-only">
         Loading flights…
       </p>
