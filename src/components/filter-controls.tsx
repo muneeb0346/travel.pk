@@ -38,16 +38,16 @@ const AIRLINE_OPTIONS = [
 ];
 
 const fieldClass =
-  "block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--foreground)] shadow-sm focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-[var(--accent-soft)]";
+  "block w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--foreground)] shadow-sm focus-visible:outline-2 focus-visible:outline-[var(--accent-soft)]";
 
 const pillBase =
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent)] has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-0 has-[:focus-visible]:outline-[var(--accent-soft)]";
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent)] has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-[var(--accent-soft)]";
 
 const pillActiveClass =
   "bg-[var(--accent)] text-[var(--accent-foreground)] border-[var(--accent)] ring-2 ring-[var(--accent)] ring-offset-2 ring-offset-[var(--surface)]";
 
 const clearPillClass =
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-2 py-2 text-sm leading-none text-[var(--muted)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--border)] hover:text-[var(--foreground)] focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-[var(--accent-soft)]";
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-2 py-2 text-sm leading-none text-[var(--muted)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--border)] hover:text-[var(--foreground)] focus-visible:outline-2 focus-visible:outline-[var(--accent-soft)]";
 
 function normalizeAirlineParam(value: string): string {
   return value.trim().toLowerCase() === "pia" ? "Pakistan International Airlines" : value.trim();

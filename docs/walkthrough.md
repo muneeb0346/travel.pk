@@ -74,7 +74,7 @@ Verified by source inspection (`src/components/*.tsx`, `src/app/globals.css`) pl
 5. `Clear filters` button (visible only when a filter is active)
 6. `Sort` `<select>` (id `sort-select`)
 
-At every stop, `:focus-visible` renders a 2px outline with 2px offset (`src/app/globals.css:29-32`) — all interactive elements carry `focus-visible:outline-2 ... outline-slate-700` classes as well.
+At every stop, `:focus-visible` renders a 2px outline with no offset (`src/app/globals.css:40-43` uses `outline-offset: 0`); all interactive elements inherit this globally without component-level overrides.
 
 **Behavior checks:**
 - `Tab`/`Shift+Tab` moves focus through all controls in DOM order; no focusable element is skipped or trapped.
@@ -85,6 +85,8 @@ At every stop, `:focus-visible` renders a 2px outline with 2px offset (`src/app/
 1. `Tab` to the `Filters` button → `Enter`/`Space` opens the native `<dialog>` via `.showModal()` (`src/components/mobile-filter-dialog.tsx:16-21`).
 2. Focus is trapped inside the dialog (native modal behavior); `Tab` cycles the close (`×`) button, filter controls, sort, and `Done`.
 3. `Escape` closes the dialog and returns focus to the page; clicking the backdrop closes it too (`handleDialogClick`).
+
+The `MobileFilterDialog` component (`src/components/mobile-filter-dialog.tsx`) is rendered on mobile in `page.tsx:72` and wraps `FilterControls` for the full filter set.
 
 **Pass criteria:** all functions reachable from keyboard alone; focus never lost; visible focus indicator at every step; dialog opens/closes with `Escape`.
 

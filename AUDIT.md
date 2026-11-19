@@ -10,27 +10,31 @@
 
 ## Findings
 
-### 1. Live-fares URL is plain text, not a link (accessibility)
+### 1. ~~Live-fares URL is plain text, not a link (accessibility)~~ **FIXED**
 
-**Evidence:** `src/app/air/flights/karachi-to-dubai/page.tsx:27-29` — "Live fares are uncached and fetched per search at `<code>/air/search?route=karachi-to-dubai</code>`." The URL sits inside `<code>`, is not an `<a>`, and cannot be tabbed to or activated from the keyboard.
+~~**Evidence:** `src/app/air/flights/karachi-to-dubai/page.tsx:27-29` — "Live fares are uncached and fetched per search at `<code>/air/search?route=karachi-to-dubai</code>`." The URL sits inside `<code>`, is not an `<a>`, and cannot be tabbed to or activated from the keyboard.
 
 **Who it hurts:** Keyboard-only and motor-impaired users (must copy/paste manually); screen-reader users get no navigable target to the live search.
 
 **Severity:** Moderate.
 
-**One-line fix:** Replace `<code>/air/search?route=karachi-to-dubai</code>` with `<a href="/air/search?route=karachi-to-dubai">Live fares for Karachi → Dubai</a>` (inherits the global `:focus-visible` outline in `src/app/globals.css:29`).
+**One-line fix:** Replace `<code>/air/search?route=karachi-to-dubai</code>` with `<a href="/air/search?route=karachi-to-dubai">Live fares for Karachi → Dubai</a>` (inherits the global `:focus-visible` outline in `src/app/globals.css:29`).~~
+
+**Status:** Fixed in `src/app/air/flights/karachi-to-dubai/page.tsx:93-99` — now uses `<Link href="/air/search?route=karachi-to-dubai"><Button variant="primary">View live Karachi to Dubai fares</Button></Link>`.
 
 ---
 
-### 2. No skip-to-content link or landmark region (accessibility)
+### 2. ~~No skip-to-content link or landmark region (accessibility)~~ **FIXED**
 
-**Evidence:** `page.tsx` returns `<article>…</article>` directly; `layout.tsx` renders `{children}` inside `<body>` with no `<main>`, no `aria-label` landmark, and no skip link (`src/app/layout.tsx:20-33`, `page.tsx:8-10`).
+~~**Evidence:** `page.tsx` returns `<article>…</article>` directly; `layout.tsx` renders `{children}` inside `<body>` with no `<main>`, no `aria-label` landmark, and no skip link (`src/app/layout.tsx:20-33`, `page.tsx:8-10`).
 
 **Who it hurts:** Keyboard and screen-reader users must tab/linearize through every block on repeat visits before reaching the guide content.
 
 **Severity:** Moderate.
 
-**One-line fix:** Wrap the page body in `<main>` (or add a visually-hidden skip-to-content link as the first focusable element).
+**One-line fix:** Wrap the page body in `<main>` (or add a visually-hidden skip-to-content link as the first focusable element).~~
+
+**Status:** Fixed in `src/app/air/flights/karachi-to-dubai/page.tsx:17-22` (skip link) and line 37 (`<main id="main-content">`). The skip link targets the main element and is visually hidden until focused.
 
 ---
 
@@ -70,10 +74,10 @@
 
 | Severity | Count |
 |----------|-------|
-| Moderate | 2 |
+| Moderate | 0 (2 fixed) |
 | Low | 2 |
 | Positive | 1 |
 
-**Release blocker?** No. Fix findings 1 and 2 before launch; finding 3 is a content-accuracy housekeeping item; finding 5 is a pre-release verification step.
+**Release blocker?** No. Findings 1 and 2 have been fixed; finding 3 is a content-accuracy housekeeping item; finding 5 is a pre-release verification step.
 
 **Recommended free checks locally:** Lighthouse (CI or CLI), axe DevTools browser extension, DevTools "Emulate vision deficiencies" + keyboard tab pass.
