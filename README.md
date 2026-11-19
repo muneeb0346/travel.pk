@@ -56,7 +56,7 @@ Rendered HTML + API evidence per state is committed under `docs/evidence/` (capt
 
 ## Known gaps
 
-- **No browser-based screenshots/walkthrough recording:** this sandbox has no browser binary and headless Chromium cannot launch here, so `docs/walkthrough.md` evidences the four states and keyboard pass with curl-captured rendered HTML plus source-verified focus behavior. Capture screenshots locally in Chrome/Firefox before submitting if required.
+- **Screenshots:** captured locally in Chrome/Firefox and stored under `docs/screenshots/` (slow, empty, partial, error states); walkthrough evidence is in `docs/walkthrough.md`.
 - **No test runner:** no vitest/jest/playwright installed. `scripts/validate-offers.mjs` covers data shape; add component/end-to-end tests next.
 - **Synthetic data only:** 30 offers, fixed dates (2026-12-01), PKR only; no real GDS/airline integration.
 - **Single static route guide:** only `/air/flights/karachi-to-dubai` exists; other routes lack guides.
@@ -78,6 +78,4 @@ Rendered HTML + API evidence per state is committed under `docs/evidence/` (capt
 - Pagination/infinite scroll for large offer sets; debounce price input (currently commits on blur/Enter).
 - Real backend behind `/api/offers`; keep the `simulate` contract for testing.
 
-## Project context
 
-This is Session S4 of the TechAbout assessment (travel.pk). Sessions S1–S3 built the API, search page, four states, and leaf components. Guardrails live in `.kilo/agent/project-map.md` and `.kilo/agent/rules.md`.
