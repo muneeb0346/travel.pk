@@ -99,3 +99,14 @@ At every stop, `:focus-visible` renders a 2px outline with 2px offset (`src/app/
 | `page-route-guide.html` | Audited route-guide page HTML (used by AUDIT.md) |
 
 Timing captured with `curl -w "%{http_code} %{time_total}"`: ok 200/1.21s, slow 200/2.52s, empty 200/1.52s, partial 200/1.52s, error 503/0.01s.
+
+---
+
+## Screenshots
+
+Captured locally in Chrome/Firefox and stored under `docs/screenshots/`:
+
+- ![Loading skeleton (slow)](screenshots/slow.png)
+- ![Empty state](screenshots/empty.png)
+- ![Partial supplier failure](screenshots/partial.png)
+- ![Error state](screenshots/error.png)
