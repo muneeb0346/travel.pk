@@ -59,7 +59,7 @@ Rendered HTML + API evidence per state is committed under `docs/evidence/` (capt
 - **No browser-based screenshots/walkthrough recording:** this sandbox has no browser binary and headless Chromium cannot launch here, so `docs/walkthrough.md` evidences the four states and keyboard pass with curl-captured rendered HTML plus source-verified focus behavior. Capture screenshots locally in Chrome/Firefox before submitting if required.
 - **No test runner:** no vitest/jest/playwright installed. `scripts/validate-offers.mjs` covers data shape; add component/end-to-end tests next.
 - **Synthetic data only:** 30 offers, fixed dates (2026-12-01), PKR only; no real GDS/airline integration.
-- **Single static route guide:** only `/flights/karachi-to-dubai` exists; other routes lack guides.
+- **Single static route guide:** only `/air/flights/karachi-to-dubai` exists; other routes lack guides.
 
 ## Next steps
 

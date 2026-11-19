@@ -2,7 +2,7 @@
 
 ## Scope
 
-**Audited page:** `/flights/karachi-to-dubai` — "Karachi to Dubai Flight Route Guide" (`src/app/flights/karachi-to-dubai/page.tsx`), served at `http://localhost:3000/flights/karachi-to-dubai`.
+**Audited page:** `/air/flights/karachi-to-dubai` — "Karachi to Dubai Flight Route Guide" (`src/app/air/flights/karachi-to-dubai/page.tsx`), served at `http://localhost:3000/air/flights/karachi-to-dubai`.
 
 **Type:** Accessibility (WCAG AA) + speed audit. **Report only — the live site was not patched.**
 
@@ -12,7 +12,7 @@
 
 ### 1. Live-fares URL is plain text, not a link (accessibility)
 
-**Evidence:** `src/app/flights/karachi-to-dubai/page.tsx:27-29` — "Live fares are uncached and fetched per search at `<code>/air/search?route=karachi-to-dubai</code>`." The URL sits inside `<code>`, is not an `<a>`, and cannot be tabbed to or activated from the keyboard.
+**Evidence:** `src/app/air/flights/karachi-to-dubai/page.tsx:27-29` — "Live fares are uncached and fetched per search at `<code>/air/search?route=karachi-to-dubai</code>`." The URL sits inside `<code>`, is not an `<a>`, and cannot be tabbed to or activated from the keyboard.
 
 **Who it hurts:** Keyboard-only and motor-impaired users (must copy/paste manually); screen-reader users get no navigable target to the live search.
 
@@ -64,7 +64,7 @@
 
 **Severity:** Low (verification task).
 
-**One-line fix:** Run Lighthouse + axe DevTools in Chrome/Firefox on `localhost:3000/flights/karachi-to-dubai` and fix any contrast/focus violations found. (Finding 1's new `<a>` is covered by the global focus style.)
+**One-line fix:** Run Lighthouse + axe DevTools in Chrome/Firefox on `localhost:3000/air/flights/karachi-to-dubai` and fix any contrast/focus violations found. (Finding 1's new `<a>` is covered by the global focus style.)
 
 ## Summary
 

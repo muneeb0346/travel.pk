@@ -6,7 +6,7 @@ One-page summary of what is cached, what is not, and what breaks if either is re
 
 | Resource | Mechanism | TTL / behavior |
 |----------|-----------|----------------|
-| `/flights/karachi-to-dubai` (static route guide) | `export const revalidate = 3600` in `src/app/flights/karachi-to-dubai/page.tsx` | Incremental Static Regeneration: prerendered at build, regenerated at most once per hour on request. `next build` reports Revalidate `1h`, Expire `1y`. |
+| `/air/flights/karachi-to-dubai` (static route guide) | `export const revalidate = 3600` in `src/app/air/flights/karachi-to-dubai/page.tsx` | Incremental Static Regeneration: prerendered at build, regenerated at most once per hour on request. `next build` reports Revalidate `1h`, Expire `1y`. |
 | Next.js framework assets (`/_next/*`, fonts, CSS, JS chunks) | Next.js default output | Standard browser/CDN caching of build assets; versioned file names. |
 | React Router / `searchParams` reads | None (by design) | Every search read is fresh; nothing about `/air/search` is cached. |
 

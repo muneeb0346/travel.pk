@@ -23,7 +23,7 @@ export default function Home() {
           >
             <Button variant="primary">Search flights</Button>
           </Link>
-          <Link href="/flights/karachi-to-dubai">
+          <Link href="/air/flights/karachi-to-dubai">
             <Button variant="outline">Route guide: Karachi → Dubai</Button>
           </Link>
         </div>
